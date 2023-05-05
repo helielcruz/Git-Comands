@@ -1,0 +1,111 @@
+LOVIZ-206-07
+git config --global user.name "heliel.cruz"
+git config --global user.email "helielcruz@gmail.com"
+
+////////////////////////////////////////////////////////////////////////////////
+Unix e MAC
+git config --global core.autocrlf input
+git config --global core.safecrlf warn
+
+Windows
+git config --global core.autocrlf true
+git config --global core.safecrlf warn
+
+80.410-201
+////////////////////////////////////////////////////////////////////////////////
+
+git init
+git add . // git checkout desfaz  no diretório // git reset HEAD file.html - desfaz as modificações do stage
+git commit -m "Nome dos arquivos"
+git commit --amend -m "Add an author/email comment" // o comando --amend acrecenta algo ao commit após o commit ser realizado
+git revert HEAD // Reverte alterações para o ultimo commit
+git reset --hard v1 // Reseta para o commit indicado pela tag (Caso não haja tag pode ser usado a hash) // ainda pode ve-los com: git hist --all
+git remote add origin https://github.com/helielcruz/Test-VsCode.git
+git push origin master
+git pull origin "nome da branch de origem"
+
+////////////////////////////////////////////
+CRIANDO BRANCH
+
+Nota: git checkout -b <branch name> é o atalho de git branch <branch name> seguido por git checkout <branch name>
+git merge master // fundindo a branch atual à branch desejada, no caso a master
+
+git branch // lista os repositórios locais
+git branch -a // lista todos os repositórios
+
+git fetch // recebe as alterações no repositório clonado
+
+/////////////////////////////////////////////
+
+git tag -d oops // exclui a tag definitivamente
+
+////////////////////////////////////////////
+Mover arquivos
+
+mkdir lib // Cria a pasta lib
+git mv hello.html lib // move o arquivo hello.html para a pasta lib
+
+/////////////////////////////////////////////
+
+git checkout -b main // Altera para main.
+---------------------------------------------------
+git pull origin main --allow-unrelated-histories // Arquivos que já existem antes da criação do repositório precisam
+desse comando antes.
+---------------------------------------------------
+
+git log // Lista o histórico de commits do projeto
+// Especifica quais commits mostrar 
+git log --pretty=oneline --max-count=2
+git log --pretty=oneline --since='5 minutes ago'
+git log --pretty=oneline --until='5 minutes ago'
+git log --pretty=oneline --author=<your name>
+git log --pretty=oneline --all
+
+git log --all --pretty=format:"%h %cd %s (%an)" --since='7 days ago' --author=helielcruz //(--author opcional)
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+git log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+
+--pretty="..." define o formato da saída
+%h é o hash abreviado do commit
+%d mostra decorações do commit (ex.: head de branches ou tags)
+%ad é a data do commit
+%s é o comentário
+%an é o nome do autor =
+--graph fala para o git mostrar a árvore de commits no formato de um gráfico de ASCII
+--date=short mantém o formato de data pequeno e simples
+
+gitk para explorar a plataforma
+--------------------------------------------------------------------------------------------------------
+
+Criar abreviações para os comandos no Windows:
+git config --global alias.co checkout
+git config --global alias.ci commit
+git config --global alias.st status
+git config --global alias.br branch
+git config --global alias.hist 'log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short'
+git config --global alias.type 'cat-file -t' // (git cat-file para explorar o git) para explorar o git
+git config --global alias.dump 'cat-file -p'
+
+Unix e Mac
+Adicione o seguinte no arquivo .gitconfig no seu diretório $HOME
+
+[alias]
+  co = checkout
+  ci = commit
+  st = status
+  br = branch
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  type = cat-file -t
+  dump = cat-file -p
+
+
+git hist --max-count=1 // encontra o último commit do repositório
+--------------------------------------------------------------------------------------------------------
+
+Para desfazer um push são necessários 3 passos:
+
+Utilizar o comando $ git reset --mixed HEAD~1 e em seguida utilizar o comando $ git stash (se preferir pode usar a opção -m "revertendo o push blablabla" para salvar o stash com um contexto do que foi feito
+Utilizar o comando $ git revert HEAD~0
+Utilizar o comando $ git stash apply
+Utilizar o comando $ git push origin sua-branch -f
+----------------------------------------------------------------------------------------------------------
